@@ -4,13 +4,9 @@ import { useMemo } from "react";
 import { Highlight, themes } from "prism-react-renderer";
 import type { SelectedNode, GraphNode } from "@/lib/types";
 import { MODULE_COLORS } from "@/lib/utils";
-import { cn } from "@/utils/cn";
 import {
   FileText,
-  GitBranch,
-  ArrowUpRight,
   Loader2,
-  Boxes,
   Eye,
   FileCode,
   X,
@@ -156,9 +152,6 @@ export default function FileSidebar({
       {/* File content */}
       {fileData && !isLoadingFile && (
         <div className="flex-1 flex flex-col overflow-y-auto min-h-0">
-            </div>
-          )}
-
           {/* Image preview or syntax-highlighted code */}
           {isImageFile(fileData.node.path) ? (
             <div className="flex-1 min-h-0 overflow-auto flex items-center justify-center p-4 bg-[#fafafa]">

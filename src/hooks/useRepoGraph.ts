@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { GitHubRepoSchema, GitHubTreeSchema } from "@/lib/types";
-import type { GraphData, RepoAnalysis, FileAnalysis, GraphNode, ModuleAnalysis } from "@/lib/types";
+import type { GraphData, RepoAnalysis, GraphNode, ModuleAnalysis } from "@/lib/types";
 import { buildGraph, addDependencyLinks, groupIntoModules } from "@/lib/graph-builder";
 import { parseImports, resolveImportPath } from "@/lib/parser";
 

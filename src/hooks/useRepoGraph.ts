@@ -117,7 +117,7 @@ export function useRepoGraph({ owner, repo, enabled = true }: UseRepoGraphOption
 }
 
 /**
- * Hook to fetch file content and AI analysis on demand (double-click)
+ * Hook to fetch file content on demand
  */
 export function useFileContent(owner: string, repo: string, branch = "main") {
   const queryClient = useQueryClient();
@@ -129,22 +129,7 @@ export function useFileContent(owner: string, repo: string, branch = "main") {
       if (!res.ok) throw new Error("Failed to fetch file content");
       const content = await res.text();
 
-      // Attempt AI analysis
-      let analysis: FileAnalysis | null = null;
-      try {
-        const analyzeRes = await fetch("/api/analyze", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ path: node.path, content: content.slice(0, 5000) }),
-        });
-        if (analyzeRes.ok) {
-          analysis = await analyzeRes.json();
-        }
-      } catch {
-        // AI analysis is optional
-      }
-
-      return { node, content, analysis };
+      return { node, content, analysis: null };
     },
   });
 

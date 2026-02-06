@@ -115,7 +115,7 @@ export default function RepoExplorer() {
 
           <p className="text-sm text-zinc-500 leading-relaxed max-w-md mx-auto">
             Paste any public GitHub repository URL to instantly generate an
-            interactive 3D architecture graph with AI-powered analysis.
+            interactive 3D architecture graph of its structure.
           </p>
 
           <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto mt-6">
@@ -173,8 +173,8 @@ export default function RepoExplorer() {
             },
             {
               icon: <Boxes className="w-4 h-4" />,
-              title: "AI Analysis",
-              desc: "Click any file for syntax preview with AI explanations.",
+              title: "Code Preview",
+              desc: "Click any file for syntax-highlighted source code preview.",
             },
           ].map((f) => (
             <div

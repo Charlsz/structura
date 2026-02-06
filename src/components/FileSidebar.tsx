@@ -136,7 +136,7 @@ export default function FileSidebar({
               {isImageFile(selectedNode.path) ? (
                 <><ImageIcon className="w-3.5 h-3.5" /> Preview Image</>
               ) : (
-                <><Eye className="w-3.5 h-3.5" /> View File &amp; Analysis</>
+                <><Eye className="w-3.5 h-3.5" /> View File</>
               )}
             </button>
           )}
@@ -153,81 +153,9 @@ export default function FileSidebar({
         </div>
       )}
 
-      {/* File content + analysis */}
+      {/* File content */}
       {fileData && !isLoadingFile && (
         <div className="flex-1 flex flex-col overflow-y-auto min-h-0">
-          {/* AI Analysis */}
-          {fileData.analysis && (
-            <div className="p-4 border-b border-zinc-100 space-y-3">
-              <div className="flex items-center gap-1.5 text-xs font-medium text-black">
-                <Boxes className="w-3.5 h-3.5" />
-                Analysis
-              </div>
-              <p className="text-xs text-zinc-600 leading-relaxed">
-                {fileData.analysis.summary}
-              </p>
-              <div className="flex items-center gap-2 text-[10px]">
-                <span className="text-zinc-400">Purpose:</span>
-                <span className="text-zinc-700">{fileData.analysis.purpose}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] text-zinc-400">Complexity:</span>
-                <span
-                  className={cn(
-                    "rounded-full px-1.5 py-0.5 text-[10px] font-medium",
-                    fileData.analysis.complexity === "high"
-                      ? "bg-red-50 text-red-600"
-                      : fileData.analysis.complexity === "medium"
-                      ? "bg-amber-50 text-amber-600"
-                      : "bg-emerald-50 text-emerald-600"
-                  )}
-                >
-                  {fileData.analysis.complexity}
-                </span>
-              </div>
-
-              {fileData.analysis.dependencies.length > 0 && (
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1 text-[10px] text-zinc-400">
-                    <GitBranch className="w-3 h-3" />
-                    Dependencies ({fileData.analysis.dependencies.length})
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {fileData.analysis.dependencies.slice(0, 8).map((d) => (
-                      <span
-                        key={d}
-                        className="rounded border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 text-[10px] font-mono text-zinc-600"
-                      >
-                        {d}
-                      </span>
-                    ))}
-                    {fileData.analysis.dependencies.length > 8 && (
-                      <span className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] text-zinc-500">
-                        +{fileData.analysis.dependencies.length - 8}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {fileData.analysis.exports.length > 0 && (
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1 text-[10px] text-zinc-400">
-                    <ArrowUpRight className="w-3 h-3" />
-                    Exports ({fileData.analysis.exports.length})
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {fileData.analysis.exports.slice(0, 8).map((e) => (
-                      <span
-                        key={e}
-                        className="rounded border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 text-[10px] font-mono text-zinc-600"
-                      >
-                        {e}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           )}
 

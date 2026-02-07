@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, Suspense } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
 import { useRepoGraph, useFileContent, useDependencyLinks } from "@/hooks/useRepoGraph";
 import { parseGitHubUrl } from "@/lib/utils";
 import type { GraphNode, SelectedNode } from "@/lib/types";
@@ -27,6 +27,17 @@ export default function RepoExplorer() {
   const [repoInfo, setRepoInfo] = useState<{ owner: string; repo: string } | null>(null);
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [highlightModule, setHighlightModule] = useState<string | null>(null);
+
+  const [structuraStars, setStructuraStars] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.github.com/repos/Charlsz/structura")
+      .then((r) => r.json())
+      .then((d) => {
+        if (typeof d.stargazers_count === "number") setStructuraStars(d.stargazers_count);
+      })
+      .catch(() => {});
+  }, []);
 
   const { graph, modules, stats, repoData, isLoading, isError, error } =
     useRepoGraph({
@@ -103,15 +114,7 @@ export default function RepoExplorer() {
     return (
       <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
         <div className="text-center space-y-6 max-w-xl mx-auto mb-14">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center"
-              style={{ backgroundColor: "#ADE8F4" }}
-            >
-              <Network className="w-5 h-5 text-black" />
-            </div>
-            <h1 className="text-3xl font-bold text-black tracking-tight">Structura</h1>
-          </div>
+          <h1 className="text-5xl font-bold text-black tracking-tight mb-2">Structura</h1>
 
           <p className="text-sm text-zinc-500 leading-relaxed max-w-md mx-auto">
             Paste any public GitHub repository URL to instantly generate an
@@ -187,6 +190,22 @@ export default function RepoExplorer() {
             </div>
           ))}
         </div>
+
+        <a
+          href="https://github.com/Charlsz/structura"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-10 inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-black transition-colors"
+        >
+          <Github className="w-4 h-4" />
+          <span className="font-mono">Charlsz/structura</span>
+          {structuraStars !== null && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-[11px] font-medium text-zinc-600">
+              <Star className="w-3 h-3" />
+              {structuraStars}
+            </span>
+          )}
+        </a>
       </div>
     );
   }

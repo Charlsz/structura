@@ -199,12 +199,13 @@ export default function RepoExplorer() {
         >
           <Github className="w-4 h-4" />
           <span className="font-mono">Charlsz/structura</span>
-          {structuraStars !== null && (
+          {/* To enable live star count, uncomment the block below */}
+          {/* {structuraStars !== null && (
             <span className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-[11px] font-medium text-zinc-600">
               <Star className="w-3 h-3" />
               {structuraStars}
             </span>
-          )}
+          )} */}
         </a>
       </div>
     );
